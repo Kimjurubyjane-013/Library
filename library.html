@@ -1,29 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyLibrary</title>
-    <link rel="stylesheet" href="library.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="library.css">
 </head>
 <body>
-    <h1>My Library</h1>
-    <button id="addBookBtn">Add New Book</button>
-    <div id="bookList">
-        <label for="bookTitle">Title:</label>
-        <input type="text" id="bookTitle" name="bookTitle">
-        <label for="bookAuthor">Author:</label>
-        <input type="text" id="bookAuthor" name="bookAuthor">
-        <label for="pages">Pages:</label>
-        <input type="number" id="pages" name="pages">
-        <label for="readStatus">Read:</label>
-        <input type="checkbox" id="readStatus" name="readStatus">
+
+  <div class="noise"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-meta">
+        <span class="header-label">Personal Collection</span>
+        <span class="book-count" id="bookCount">0 books</span>
+      </div>
+      <h1 class="site-title">My Library</h1>
+      <button class="add-btn" id="addBookBtn" aria-label="Add new book">
+        <span class="add-icon">+</span>
+        <span>Add Book</span>
+      </button>
     </div>
-    <div class="actions">
-        <button type="submit" id="submitBtn">Submit</button>
-        <button type="button" id="cancelBtn">Cancel</button>
+  </header>
+
+  <!-- Modal overlay -->
+  <div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">New Book</h2>
+        <button class="modal-close" id="cancelBtn" aria-label="Close">&#x2715;</button>
+      </div>
+      <div class="modal-body">
+        <div class="field">
+          <label class="field-label" for="bookTitle">Title</label>
+          <input class="field-input" type="text" id="bookTitle" placeholder="e.g. The Great Gatsby" autocomplete="off">
+        </div>
+        <div class="field">
+          <label class="field-label" for="bookAuthor">Author</label>
+          <input class="field-input" type="text" id="bookAuthor" placeholder="e.g. F. Scott Fitzgerald" autocomplete="off">
+        </div>
+        <div class="field">
+          <label class="field-label" for="pages">Pages</label>
+          <input class="field-input" type="number" id="pages" placeholder="e.g. 180" min="1">
+        </div>
+        <div class="field field-check">
+          <label class="check-label" for="readStatus">
+            <input type="checkbox" id="readStatus">
+            <span class="check-box" aria-hidden="true"></span>
+            <span>Already read</span>
+          </label>
+        </div>
+        <p class="error-msg" id="errorMsg" role="alert"></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-ghost" id="cancelBtn2">Cancel</button>
+        <button class="btn-primary" id="submitBtn">Add to Library</button>
+      </div>
     </div>
-    <div id="bookDisplay"></div>
+  </div>
+
+  <div class="empty-state" id="emptyState">
+    <div class="empty-icon">&#128213;</div>
+    <p class="empty-title">Your library is empty</p>
+    <p class="empty-sub">Add your first book to get started</p>
+  </div>
+
+  <div class="filter-bar" id="filterBar" hidden>
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="read">Read</button>
+    <button class="filter-btn" data-filter="unread">Unread</button>
+  </div>
+
+  <main class="book-grid" id="bookDisplay" aria-label="Book collection" aria-live="polite"></main>
+
+  <script src="library.js"></script>
 </body>
-<script src="library.js"></script>
 </html>
